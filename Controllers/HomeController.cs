@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using IndigoAssistMVC.Models;
 
 namespace IndigoAssistMVC.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,6 +21,15 @@ namespace IndigoAssistMVC.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Vista de acceso denegado
+        /// </summary>
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
         {
             return View();
         }

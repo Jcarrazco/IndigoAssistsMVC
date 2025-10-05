@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using IndigoAssistMVC.Data;
 using IndigoAssistMVC.Models;
 using IndigoAssistMVC.ViewModels;
 
 namespace IndigoAssistMVC.Controllers
 {
+    [Authorize(Roles = "Administrador,Supervisor")]
     public class ActivoController : Controller
     {
         private readonly IndigoDBContext _context;
@@ -241,7 +243,7 @@ namespace IndigoAssistMVC.Controllers
             var componentes = await _context.Componentes.ToListAsync();
 
             viewModel.TipoActivoList = new SelectList(tiposActivo, "IdTipoActivo", "TipoActivoNombre", viewModel.IdTipoActivo);
-            viewModel.DepartamentoList = new SelectList(departamentos, "IdDepartamento", "DepartamentoNombre", viewModel.IdDepartamento);
+            viewModel.DepartamentoList = new SelectList(departamentos, "IdDepartamento", "Nombre", viewModel.IdDepartamento);
             viewModel.StatusList = new SelectList(status, "StatusId", "StatusNombre", viewModel.IdStatus);
             viewModel.ProveedorList = new SelectList(proveedores, "IdProveedor", "ProveedorNombre", viewModel.IdProveedor);
 
@@ -269,7 +271,7 @@ namespace IndigoAssistMVC.Controllers
             var componentes = await _context.Componentes.ToListAsync();
 
             filtro.TiposActivo = new SelectList(tiposActivo, "IdTipoActivo", "TipoActivoNombre", filtro.TipoActivoId);
-            filtro.Departamentos = new SelectList(departamentos, "IdDepartamento", "DepartamentoNombre", filtro.DepartamentoId);
+            filtro.Departamentos = new SelectList(departamentos, "IdDepartamento", "Nombre", filtro.DepartamentoId);
             filtro.Statuses = new SelectList(status, "StatusId", "StatusNombre", filtro.StatusId);
             filtro.Proveedores = new SelectList(proveedores, "IdProveedor", "ProveedorNombre", filtro.ProveedorId);
             filtro.Componentes = new SelectList(componentes, "ValorBit", "ComponenteNombre");

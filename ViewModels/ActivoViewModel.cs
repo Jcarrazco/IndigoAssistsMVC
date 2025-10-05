@@ -136,7 +136,7 @@ namespace IndigoAssistMVC.ViewModels
                 IdStatus = activo.IdStatus,
                 IdProveedor = activo.IdProveedor,
                 TipoActivoNombre = activo.TipoActivo?.TipoActivoNombre,
-                DepartamentoNombre = activo.Departamento?.DepartamentoNombre,
+                DepartamentoNombre = activo.Departamento?.Nombre,
                 StatusNombre = activo.Status.StatusNombre,
                 ProveedorNombre = activo.Proveedor?.ProveedorNombre
             };

@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using IndigoAssistMVC.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace IndigoAssistMVC.Data
 {
-    public class IndigoDBContext : DbContext 
+    public class IndigoDBContext : IdentityDbContext<Usuario> 
     {
         public IndigoDBContext(DbContextOptions<IndigoDBContext> options) : base(options)
         {
@@ -16,10 +17,57 @@ namespace IndigoAssistMVC.Data
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Componente> Componentes { get; set; }
         public DbSet<Software> Software { get; set; }
+        
+        // Tablas del sistema de Tickets
+        public DbSet<TicketVista> TicketsVista { get; set; }
+        public DbSet<mPerEmp> mPerEmp { get; set; }
+        public DbSet<mPersonas> mPersonas { get; set; }
+        public DbSet<mEmpleados> mEmpleados { get; set; }
+        public DbSet<mDepartamentos> mDepartamentos { get; set; }
+        public DbSet<mStatusTicket> mStatusTicket { get; set; }
+        public DbSet<mPrioridadTicket> mPrioridadTicket { get; set; }
+        public DbSet<mTipoTicket> mTipoTicket { get; set; }
+        public DbSet<mCategoriasTicket> mCategoriasTicket { get; set; }
+        public DbSet<mSubCategoriasTicket> mSubCategoriasTicket { get; set; }
+        public DbSet<dTicketsTecnicos> dTicketsTecnicos { get; set; }
+        public DbSet<mEmpresas> mEmpresas { get; set; }
+        public DbSet<dEmpleados> dEmpleados { get; set; }
+        public DbSet<mPuestos> mPuestos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configuración de Identity
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                // Configurar propiedades personalizadas
+                entity.Property(e => e.NombreCompleto)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .HasComment("Nombre completo del usuario");
+
+                entity.Property(e => e.IdDepartamento)
+                    .HasComment("ID del departamento");
+
+                entity.Property(e => e.Activo)
+                    .HasDefaultValue(true)
+                    .HasComment("Indica si el usuario está activo");
+
+                entity.Property(e => e.FechaRegistro)
+                    .HasDefaultValueSql("GETDATE()")
+                    .HasComment("Fecha de registro del usuario");
+
+                entity.Property(e => e.UltimoAcceso)
+                    .HasComment("Último acceso del usuario");
+
+                // Configurar relaciones
+                entity.HasOne(e => e.Departamento)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdDepartamento)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
 
             // Configuración de la entidad Activo usando Fluent API
             modelBuilder.Entity<Activo>(entity =>
@@ -129,6 +177,120 @@ namespace IndigoAssistMVC.Data
                     .WithMany(p => p.Activos)
                     .HasForeignKey(e => e.IdProveedor)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Configuración de las entidades del sistema de Tickets
+            ConfigureTicketEntities(modelBuilder);
+        }
+
+        private void ConfigureTicketEntities(ModelBuilder modelBuilder)
+        {
+            // Configuración de TicketVista (vista)
+            modelBuilder.Entity<TicketVista>(entity =>
+            {
+                entity.ToView("vTickets");
+                entity.HasNoKey();
+            });
+
+            // Configuración de mPerEmp
+            modelBuilder.Entity<mPerEmp>(entity =>
+            {
+                entity.ToTable("mPerEmp");
+                entity.HasKey(e => e.IdPersona);
+                entity.Property(e => e.IdPersona).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mPersonas
+            modelBuilder.Entity<mPersonas>(entity =>
+            {
+                entity.ToTable("mPersonas");
+                entity.HasKey(e => e.Persona);
+                entity.Property(e => e.Persona).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mEmpleados
+            modelBuilder.Entity<mEmpleados>(entity =>
+            {
+                entity.ToTable("mEmpleados");
+                entity.HasKey(e => e.IdPersona);
+            });
+
+            // Configuración de mDepartamentos
+            modelBuilder.Entity<mDepartamentos>(entity =>
+            {
+                entity.ToTable("mDepartamentos");
+                entity.HasKey(e => e.IdDepto);
+                entity.Property(e => e.IdDepto).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mStatusTicket
+            modelBuilder.Entity<mStatusTicket>(entity =>
+            {
+                entity.ToTable("mStatusTicket");
+                entity.HasKey(e => e.Status);
+                entity.Property(e => e.Status).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mPrioridadTicket
+            modelBuilder.Entity<mPrioridadTicket>(entity =>
+            {
+                entity.ToTable("mPrioridadTicket");
+                entity.HasKey(e => e.IdPrioridad);
+                entity.Property(e => e.IdPrioridad).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mTipoTicket
+            modelBuilder.Entity<mTipoTicket>(entity =>
+            {
+                entity.ToTable("mTipoTicket");
+                entity.HasKey(e => e.IdTipoTicket);
+                entity.Property(e => e.IdTipoTicket).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mCategoriasTicket
+            modelBuilder.Entity<mCategoriasTicket>(entity =>
+            {
+                entity.ToTable("mCategoriasTicket");
+                entity.HasKey(e => e.IdCategoria);
+                entity.Property(e => e.IdCategoria).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de mSubCategoriasTicket
+            modelBuilder.Entity<mSubCategoriasTicket>(entity =>
+            {
+                entity.ToTable("mSubCategoriasTicket");
+                entity.HasKey(e => e.IdSubCategoria);
+                entity.Property(e => e.IdSubCategoria).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de dTicketsTecnicos
+            modelBuilder.Entity<dTicketsTecnicos>(entity =>
+            {
+                entity.ToTable("dTicketsTecnicos");
+                entity.HasKey(e => new { e.IdTicket, e.IdPersona });
+            });
+
+            // Configuración de mEmpresas
+            modelBuilder.Entity<mEmpresas>(entity =>
+            {
+                entity.ToTable("mEmpresas");
+                entity.HasKey(e => e.IdEmpresa);
+                entity.Property(e => e.IdEmpresa).ValueGeneratedOnAdd();
+            });
+
+            // Configuración de dEmpleados
+            modelBuilder.Entity<dEmpleados>(entity =>
+            {
+                entity.ToTable("dEmpleados");
+                entity.HasKey(e => new { e.IdPersona, e.IdPuesto });
+            });
+
+            // Configuración de mPuestos
+            modelBuilder.Entity<mPuestos>(entity =>
+            {
+                entity.ToTable("mPuestos");
+                entity.HasKey(e => e.IdPuesto);
+                entity.Property(e => e.IdPuesto).ValueGeneratedOnAdd();
             });
         }
     }

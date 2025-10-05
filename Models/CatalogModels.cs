@@ -32,7 +32,7 @@ namespace IndigoAssistMVC.Models
         [StringLength(80)]
         [DisplayName("Departamento")]
         [Column("Departamento")]
-        public string DepartamentoNombre { get; set; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
 
         // Navegación
         public virtual ICollection<Activo> Activos { get; set; } = new List<Activo>();
