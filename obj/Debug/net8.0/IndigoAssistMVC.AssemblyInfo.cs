@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IndigoAssistMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+719ff1fcbfb726929109838c32b37bdaae14f55e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77267aad388864069ad7966327d79cd379786070")]
 [assembly: System.Reflection.AssemblyProductAttribute("IndigoAssistMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IndigoAssistMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
