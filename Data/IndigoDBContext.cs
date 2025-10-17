@@ -287,6 +287,17 @@ namespace IndigoAssistMVC.Data
                 entity.ToTable("mPerEmp");
                 entity.HasKey(e => e.IdPersona);
                 entity.Property(e => e.IdPersona).ValueGeneratedOnAdd();
+                
+                // Configurar relaciones para evitar ciclos de cascada
+                entity.HasOne(e => e.Empresa)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdEmpresa)
+                    .OnDelete(DeleteBehavior.NoAction);
+                    
+                entity.HasOne(e => e.PersonaInfo)
+                    .WithMany()
+                    .HasForeignKey(e => e.Persona)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             // Configuración de mPersonas
@@ -295,6 +306,12 @@ namespace IndigoAssistMVC.Data
                 entity.ToTable("mPersonas");
                 entity.HasKey(e => e.Persona);
                 entity.Property(e => e.Persona).ValueGeneratedOnAdd();
+                
+                // Configurar auto-referencia para evitar ciclos de cascada
+                entity.HasOne(e => e.ReferenciaNavigation)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdReferencia)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             // Configuración de mEmpleados
@@ -302,6 +319,12 @@ namespace IndigoAssistMVC.Data
             {
                 entity.ToTable("mEmpleados");
                 entity.HasKey(e => e.IdPersona);
+                
+                // Configurar relación con mPersonas para evitar ciclos de cascada
+                entity.HasOne(e => e.PersonaEmpresa)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdPersona)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             // Configuración de mDepartamentos
@@ -378,6 +401,12 @@ namespace IndigoAssistMVC.Data
                 entity.ToTable("mEmpresas");
                 entity.HasKey(e => e.IdEmpresa);
                 entity.Property(e => e.IdEmpresa).ValueGeneratedOnAdd();
+                
+                // Configurar relación con mPersonas para evitar ciclos de cascada
+                entity.HasOne(e => e.PersonaInfo)
+                    .WithMany()
+                    .HasForeignKey(e => e.Persona)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             // Configuración de dEmpleados
@@ -385,6 +414,17 @@ namespace IndigoAssistMVC.Data
             {
                 entity.ToTable("dEmpleados");
                 entity.HasKey(e => new { e.IdPersona, e.IdPuesto });
+                
+                // Configurar relaciones para evitar ciclos de cascada
+                entity.HasOne(e => e.Empleado)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdPersona)
+                    .OnDelete(DeleteBehavior.NoAction);
+                    
+                entity.HasOne(e => e.Puesto)
+                    .WithMany()
+                    .HasForeignKey(e => e.IdPuesto)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             // Configuración de mPuestos

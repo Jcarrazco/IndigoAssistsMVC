@@ -220,6 +220,10 @@ namespace IndigoAssistMVC.Models
         [Display(Name = "Fecha Modificación")]
         public DateTime? FeModifica { get; set; }
 
+        // Propiedades de navegación
+        [ForeignKey("IdReferencia")]
+        public virtual mPersonas? ReferenciaNavigation { get; set; }
+
         // Propiedad calculada
         [NotMapped]
         [Display(Name = "Nombre Completo")]
@@ -424,6 +428,9 @@ namespace IndigoAssistMVC.Models
         // Propiedades de navegación
         [ForeignKey("IdPersona")]
         public virtual mEmpleados? Empleado { get; set; }
+        
+        [ForeignKey("IdPersona")]
+        public virtual mPersonas? PersonaNavigation { get; set; }
 
         [ForeignKey("IdPuesto")]
         public virtual mPuestos? Puesto { get; set; }

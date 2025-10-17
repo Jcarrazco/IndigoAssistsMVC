@@ -45,6 +45,65 @@ siguiendo las mejores prácticas de desarrollo en .NET y alineado al plan de apr
 - ✅ **Plataforma Web**: Desarrollar aplicación MVC para administración remota
 - 📋 **App Móvil**: Crear aplicación para técnicos con registro de intervenciones
 
+## 🚀 Instalación Rápida
+
+### 📋 Prerrequisitos
+- **.NET 8 SDK** (última versión)
+- **SQL Server** (LocalDB, Express o Developer)
+- **Visual Studio 2022** o **VS Code**
+- **Git** (para clonar el repositorio)
+
+### ⚡ Instalación en 3 Pasos
+
+1. **Clonar y configurar**
+   ```bash
+   git clone https://github.com/Jcarrazco/IndigoAssistsMVC
+   cd IndigoAssistMVC
+   dotnet restore
+   ```
+
+2. **Crear base de datos**
+   ```sql
+   -- Crear base de datos
+   CREATE DATABASE [IndigoBasic];
+   GO
+   
+   -- Ejecutar script completo (estructura + datos)
+   -- Archivo: ScriptBD/IndigoBasic_Nueva.sql 
+   -- Archivo: ScriptBD/IndigoBasic_Seeders.sql
+   ```
+
+3. **Ejecutar aplicación**
+   ```bash
+   dotnet run
+   ```
+
+### 🎯 ¿Qué se crea automáticamente?
+
+Al ejecutar `dotnet run`, el sistema crea automáticamente:
+
+- ✅ **Migraciones aplicadas** (estructura de Identity)
+- ✅ **Roles**: Administrador, Supervisor, Tecnico
+- ✅ **Usuarios de prueba** con contraseñas hasheadas
+- ✅ **Catálogos de activos** (tipos, status, proveedores, etc.)
+- ✅ **Datos de tickets** (departamentos, personas, empresas)
+
+### 👤 Usuarios de Prueba
+
+| Email | Contraseña | Rol |
+|-------|------------|-----|
+| admin@indigo.com | Password123! | Administrador |
+| supervisor@indigo.com | Password123! | Supervisor |
+| tecnico@indigo.com | Password123! | Tecnico |
+| usuario@indigo.com | Password123! | Tecnico |
+
+### 📁 Scripts Disponibles
+
+- **`ScriptBD/IndigoBasic_Nueva.sql`**: Script completo (estructura + datos de tickets)
+- **`ScriptBD/IndigoBasic_Seeders.sql`**: Solo seeders adicionales (opcional)
+
+---
+
 ## 📊 Alcance del Proyecto
 
 ### 🎫 Gestión de Tickets
@@ -90,172 +149,6 @@ siguiendo las mejores prácticas de desarrollo en .NET y alineado al plan de apr
 - **Frontend**: ASP.NET Core MVC
 - **Patrón**: MVC (Model-View-Controller)
 
-### ⚙️ Variables del Sistema
-
-Los scripts incluyen configuración automática:
-
-```sql
--- Variables configuradas automáticamente
-TicketNoEncuestas = '2'        -- Máximo encuestas por día
-TicketTiempoMaximo = '480'      -- Tiempo máximo en minutos
-TicketNotificacionEmail = '1'   -- Notificaciones habilitadas
-TicketAutoAsignacion = '0'      -- Auto-asignación deshabilitada
-```
-
-### 🔄 Secuencia de Ejecución Recomendada
-
-#### Opción 1: Instalación Completa (Recomendada)
-```sql
--- 1. Crear base de datos
-CREATE DATABASE [IndigoBasic];
-GO
-
--- 2. Ejecutar script completo
--- Archivo: ScriptBD/IndigoBasic_Nueva.sql
--- ⚠️ IMPORTANTE: Este script incluye TODO el sistema
-```
-
-#### Opción 2: Instalación Modular
-```sql
--- 1. Crear base de datos
-CREATE DATABASE [IndigoBasic];
-GO
-
--- 2. Sistema de Tickets (Base)
--- Archivo: ScriptBD/Tickets_Isolated_Script.sql
--- Incluye: Usuarios, departamentos, tickets, catálogos
-
--- 3. Sistema de Activos (Adicional)
--- Archivo: ScriptBD/IndigoBasic.sql  
--- Incluye: Activos, componentes, proveedores
-```
-
-#### ⚠️ Notas Importantes
-
-1. **No ejecutar `CreateIdentityTables.sql`** - Es redundante con `IndigoBasic_Nueva.sql`
-2. **Los scripts son autocontenidos** - No requieren dependencias externas
-3. **Los seeders están incluidos** - La BD queda lista para usar inmediatamente
-4. **Orden de ejecución** - Los scripts están ordenados correctamente internamente
-5. **Base de datos** - Debe llamarse exactamente `IndigoBasic`
-
-#### 🚀 Verificación Post-Instalación
-
-Después de ejecutar los scripts, verificar que existan estas tablas principales:
-
-```sql
--- Verificar tablas principales
-SELECT TABLE_NAME 
-FROM INFORMATION_SCHEMA.TABLES 
-WHERE TABLE_NAME IN (
-    'mTickets', 'mActivos', 'AspNetUsers', 
-    'mPersonas', 'mEmpleados', 'mDepartamentos'
-);
-
--- Verificar datos de prueba
-SELECT COUNT(*) FROM mTickets;        -- Debe ser > 0
-SELECT COUNT(*) FROM mActivos;        -- Debe ser > 0  
-SELECT COUNT(*) FROM AspNetUsers;     -- Debe ser > 0
-```
-
-## 📊 Base de Datos y Scripts
-
-### 🗂️ Scripts Disponibles
-
-El proyecto incluye scripts completos de base de datos en la carpeta `ScriptBD/`:
-
-| Archivo | Descripción | Tamaño | Incluye Seeders |
-|---------|-------------|--------|-----------------|
-| `IndigoBasic_Nueva.sql` | **Script completo recomendado** - Sistema completo con tickets, activos e Identity | 40KB | ✅ Sí |
-| `Tickets_Isolated_Script.sql` | Sistema completo de tickets con datos de prueba | 38KB | ✅ Sí |
-| `IndigoBasic.sql` | Sistema básico de activos con datos iniciales | 14KB | ✅ Sí |
-| `CreateIdentityTables.sql` | Solo tablas de Identity (redundante) | 6KB | ❌ No |
-
-### 🎯 Recomendación de Uso
-
-**Para instalación completa (Recomendado):**
-```sql
--- Usar solo este archivo
-ScriptBD/IndigoBasic_Nueva.sql
-```
-
-**Para desarrollo modular:**
-```sql
--- 1. Sistema de tickets completo
-ScriptBD/Tickets_Isolated_Script.sql
-
--- 2. Sistema de activos
-ScriptBD/IndigoBasic.sql
-```
-
-### 📋 Contenido de los Scripts
-
-#### `IndigoBasic_Nueva.sql` (Completo)
-- ✅ **Sistema de Tickets**: Tablas completas con relaciones
-- ✅ **Sistema de Activos**: Gestión de equipos y dispositivos  
-- ✅ **ASP.NET Identity**: Tablas de autenticación
-- ✅ **Datos de Prueba**: Usuarios, departamentos, tickets, activos
-- ✅ **Funciones y Procedimientos**: Lógica de negocio
-- ✅ **Vistas**: Consultas optimizadas
-
-#### `Tickets_Isolated_Script.sql` (Solo Tickets)
-- ✅ **Sistema de Tickets Completo**: 20+ tablas relacionadas
-- ✅ **Datos de Prueba**: 5 usuarios, 5 tickets activos, 2 históricos
-- ✅ **Catálogos**: Estados, prioridades, categorías, subcategorías
-- ✅ **Funciones**: GetSysVar, GetAnotacionesTecnicosTicket
-- ✅ **Procedimientos**: TicketValoracionEnviar
-- ✅ **Vistas**: vTickets, vhTickets, vEmpleados
-
-#### `IndigoBasic.sql` (Solo Activos)
-- ✅ **Gestión de Activos**: Equipos, componentes, proveedores
-- ✅ **Datos de Prueba**: 10 activos de ejemplo
-- ✅ **Catálogos**: Tipos, estados, departamentos, software
-- ✅ **Codificación de Componentes**: Sistema de bits para componentes
-
-### 🔧 Estructura de la Base de Datos
-
-#### Sistema de Tickets
-- **Tablas Principales**: mTickets, mPersonas, mEmpleados
-- **Catálogos**: Estados, prioridades, tipos, categorías
-- **Histórico**: hTickets, hdTickets (tickets cerrados)
-- **Log**: dTickets (eventos y actividades)
-- **Asignaciones**: dTicketsTecnicos (técnicos por ticket)
-
-#### Sistema de Activos  
-- **Tablas Principales**: mActivos, mTiposActivo, mStatus
-- **Catálogos**: Departamentos, proveedores, software, componentes
-- **Codificación**: Sistema de bits para componentes de hardware
-
-#### Sistema de Autenticación
-- **ASP.NET Identity**: AspNetUsers, AspNetRoles, AspNetUserRoles
-- **Campos Personalizados**: NombreCompleto, IdDepartamento, Activo
-
-### 👥 Usuarios de Prueba Incluidos
-
-| Usuario | Contraseña | Rol | Departamento | Descripción |
-|---------|------------|-----|--------------|-------------|
-| `admin` | `admin123` | Administrador | Sistemas | Usuario principal |
-| `jperez` | `password123` | Administrador | Sistemas | Administrador |
-| `mgonzalez` | `password123` | Técnico | Recursos Humanos | Técnico RH |
-| `crodriguez` | `password123` | Técnico | Sistemas | Técnico IT |
-| `test` | `test123` | Técnico | Sistemas | Usuario de prueba |
-
-### 📊 Datos de Prueba Incluidos
-
-#### Sistema de Tickets
-- **5 Departamentos**: Sistemas, RH, Contabilidad, Ventas, Almacén
-- **11 Puestos**: Desde Gerentes hasta Operadores
-- **10 Categorías**: Hardware, Software, Redes, Usuarios, etc.
-- **30 Subcategorías**: Equipos, Impresoras, Servidores, etc.
-- **5 Tickets Activos**: Con diferentes estados y prioridades
-- **2 Tickets Históricos**: Cerrados con valoraciones
-
-#### Sistema de Activos
-- **12 Tipos de Activos**: Laptop, PC, Servidor, Impresora, etc.
-- **12 Departamentos**: Ventas, Soporte, RH, Finanzas, etc.
-- **15 Proveedores**: Dell, HP, Lenovo, Apple, Microsoft, etc.
-- **14 Componentes**: Procesador, RAM, SSD, Tarjeta Gráfica, etc.
-- **21 Software**: Windows, Office, Adobe, etc.
-- **10 Activos de Ejemplo**: Con asignaciones y ubicaciones
 
 ## 📅 Plan de Trabajo - Cronograma del Diplomado
 
@@ -424,85 +317,13 @@ El proyecto se encuentra en la fase de desarrollo de la aplicación web MVC, con
 - **Historial de movimientos** y cambios
 - **Códigos de barras** para identificación
 
-## 🔧 Instalación y Configuración
-
-### 📋 Prerrequisitos
-- **.NET 8 SDK** (última versión)
-- **SQL Server** (LocalDB, Express o Developer)
-- **Visual Studio 2022** o **VS Code**
-- **Git** (para clonar el repositorio)
-
-### 🚀 Pasos de Instalación
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/Jcarrazco/IndigoAssistsMVC
-   cd IndigoAssistMVC
-   ```
-
-2. **Restaurar paquetes NuGet**
-   ```bash
-   dotnet restore
-   ```
-
-3. **Configurar la base de datos**
-   - Crear la base de datos `IndigoBasic` en SQL Server
-   - Elige UNA de las siguientes rutas:
-
-   **Ruta A (Recomendada) - Migraciones EF (Identity por migración) + Seeders:**
-   1) Ejecuta migraciones para crear el esquema completo (incluye Identity):
-   ```bash
-   dotnet ef database update
-   ```
-   2) Abre `ScriptBD/IndigoBasic_Nueva.sql` y ejecuta SOLO la sección "SEEDERS" (desde el encabezado `SEEDERS` hasta el final) para poblar catálogos, personas, activos y datos de prueba.
-
-   **Ruta B - Script completo (sin migraciones):**
-   ```sql
-   -- Ejecutar en SQL Server Management Studio o Azure Data Studio
-   -- 1) Crear base de datos
-   CREATE DATABASE [IndigoBasic];
-   GO
-
-   -- 2) Ejecutar script completo
-   -- Archivo: ScriptBD/IndigoBasic_Nueva.sql
-   ```
-   (En esta ruta no es necesario ejecutar migraciones EF.)
-
-4. **Configurar la cadena de conexión**
-   - Editar `appsettings.json`
-   - Configurar la cadena de conexión a SQL Server:
-   ```json
-   {
-     "ConnectionStrings": {
-       "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=IndigoBasic;Trusted_Connection=true;MultipleActiveResultSets=true"
-     }
-   }
-   ```
-
-5. **Ejecutar el proyecto**
-   ```bash
-   dotnet run
-   ```
-
-### 👤 Usuarios de Prueba
-
-Para probar el sistema de autenticación, puedes usar estos usuarios:
-
-| Usuario | Contraseña | Rol | Departamento |
-|---------|------------|-----|--------------|
-| `admin` | `admin123` | Administrador | Sistemas |
-| `jperez` | `password123` | Administrador | Sistemas |
-| `mgonzalez` | `password123` | Técnico | Recursos Humanos |
-| `crodriguez` | `password123` | Técnico | Sistemas |
-| `test` | `test123` | Técnico | Sistemas |
-
 ## 📈 Próximos Pasos
 
 ### 🔄 En Desarrollo (Octubre)
 - **Completar módulo de tickets** con lógica de negocio
+- **Implementar estructura de consumo API (desacoplar)
 - **Implementar notificaciones** básicas
 - **Mejorar dashboard** con más métricas
-- **Optimizar rendimiento** de consultas
 
 ### 📋 Planificado (Noviembre - Enero)
 - **API REST** para integraciones

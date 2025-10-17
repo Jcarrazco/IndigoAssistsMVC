@@ -55,7 +55,22 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
-// Seeding movido a scripts SQL (ScriptBD/IndigoBasic_Nueva.sql)
+// Seeding automático de usuarios de Identity
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<IndigoAssistMVC.Data.IndigoDBContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Usuario>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    
+    // Aplicar migraciones automáticamente
+    context.Database.Migrate();
+    
+    // Crear datos de catálogos de activos PRIMERO
+    await IndigoAssistMVC.Data.ActivoSeeder.SeedAsync(context);
+    
+    // Crear usuarios y roles de prueba DESPUÉS
+    await IndigoAssistMVC.Data.IdentitySeeder.SeedAsync(context, userManager, roleManager);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
