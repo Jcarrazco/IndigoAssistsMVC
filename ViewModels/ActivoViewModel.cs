@@ -93,7 +93,7 @@ namespace IndigoAssistMVC.ViewModels
         public string? DepartamentoNombre { get; set; }
 
         [DisplayName("Status")]
-        public char? StatusNombre { get; set; }
+        public string? StatusNombre { get; set; }
 
         [DisplayName("Proveedor")]
         public string? ProveedorNombre { get; set; }
@@ -136,7 +136,7 @@ namespace IndigoAssistMVC.ViewModels
                 IdStatus = activo.IdStatus,
                 IdProveedor = activo.IdProveedor,
                 TipoActivoNombre = activo.TipoActivo?.TipoActivoNombre,
-                DepartamentoNombre = activo.Departamento?.Nombre,
+                DepartamentoNombre = activo.Departamento?.Departamento,
                 StatusNombre = activo.Status.StatusNombre,
                 ProveedorNombre = activo.Proveedor?.ProveedorNombre
             };

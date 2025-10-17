@@ -55,29 +55,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
-// Ejecutar seeders de datos
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        var context = services.GetRequiredService<IndigoAssistMVC.Data.IndigoDBContext>();
-        var userManager = services.GetRequiredService<UserManager<Usuario>>();
-        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        
-        // Asegurar que la base de datos existe
-        await context.Database.EnsureCreatedAsync();
-        
-        // Ejecutar seeders
-        await IndigoAssistMVC.Data.ActivoSeeder.SeedAsync(context);
-        await IndigoAssistMVC.Data.IdentitySeeder.SeedAsync(context, userManager, roleManager);
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ocurrió un error durante la inicialización de datos");
-    }
-}
+// Seeding movido a scripts SQL (ScriptBD/IndigoBasic_Nueva.sql)
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

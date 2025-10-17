@@ -133,16 +133,16 @@
                                 @{
                                     string statusClass = Model.StatusNombre switch
                                     {
-                                        'A' => "bg-success",
-                                        'I' => "bg-secondary", 
-                                        'M' => "bg-warning text-dark",
+                                        "A" => "bg-success",
+                                        "I" => "bg-secondary", 
+                                        "M" => "bg-warning text-dark",
                                         _ => "bg-secondary"
                                     };
                                     string statusText = Model.StatusNombre switch
                                     {
-                                        'A' => "Activo",
-                                        'I' => "Inactivo",
-                                        'M' => "Mantenimiento",
+                                        "A" => "Activo",
+                                        "I" => "Inactivo",
+                                        "M" => "Mantenimiento",
                                         _ => Model.StatusNombre.ToString()
                                     };
                                 }

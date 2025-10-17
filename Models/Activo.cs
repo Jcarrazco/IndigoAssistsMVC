@@ -113,7 +113,7 @@ namespace IndigoAssistMVC.Models
         public virtual TipoActivo? TipoActivo { get; set; }
 
         [ForeignKey("IdDepartamento")]
-        public virtual Departamento? Departamento { get; set; }
+        public virtual mDepartamentos? Departamento { get; set; }
 
         [ForeignKey("IdStatus")]
         public virtual Status? Status { get; set; }

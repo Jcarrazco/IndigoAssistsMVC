@@ -34,6 +34,8 @@ namespace IndigoAssistMVC.Controllers
             {
                 // Aplicar filtros
                 viewModel.Filtro = filtro;
+                // Re-cargar listas del filtro con el modelo asignado para evitar nulos en SelectList
+                await CargarDatosParaFiltros(viewModel.Filtro);
                 var activos = await AplicarFiltros(filtro);
                 viewModel.Resultados = activos.Select(a => ActivoViewModel.FromActivo(a)).ToList();
             }
@@ -237,13 +239,13 @@ namespace IndigoAssistMVC.Controllers
             viewModel ??= new ActivoViewModel();
 
             var tiposActivo = await _context.TiposActivo.ToListAsync();
-            var departamentos = await _context.Departamentos.ToListAsync();
+            var departamentos = await _context.mDepartamentos.ToListAsync();
             var status = await _context.Status.ToListAsync();
             var proveedores = await _context.Proveedores.ToListAsync();
             var componentes = await _context.Componentes.ToListAsync();
 
             viewModel.TipoActivoList = new SelectList(tiposActivo, "IdTipoActivo", "TipoActivoNombre", viewModel.IdTipoActivo);
-            viewModel.DepartamentoList = new SelectList(departamentos, "IdDepartamento", "Nombre", viewModel.IdDepartamento);
+            viewModel.DepartamentoList = new SelectList(departamentos, "IdDepto", "Departamento", viewModel.IdDepartamento);
             viewModel.StatusList = new SelectList(status, "StatusId", "StatusNombre", viewModel.IdStatus);
             viewModel.ProveedorList = new SelectList(proveedores, "IdProveedor", "ProveedorNombre", viewModel.IdProveedor);
 
@@ -265,16 +267,24 @@ namespace IndigoAssistMVC.Controllers
         private async Task CargarDatosParaFiltros(ActivoFiltroViewModel filtro)
         {
             var tiposActivo = await _context.TiposActivo.ToListAsync();
-            var departamentos = await _context.Departamentos.ToListAsync();
+            var departamentos = await _context.mDepartamentos.ToListAsync();
             var status = await _context.Status.ToListAsync();
             var proveedores = await _context.Proveedores.ToListAsync();
             var componentes = await _context.Componentes.ToListAsync();
 
             filtro.TiposActivo = new SelectList(tiposActivo, "IdTipoActivo", "TipoActivoNombre", filtro.TipoActivoId);
-            filtro.Departamentos = new SelectList(departamentos, "IdDepartamento", "Nombre", filtro.DepartamentoId);
+            filtro.Departamentos = new SelectList(departamentos, "IdDepto", "Departamento", filtro.DepartamentoId);
             filtro.Statuses = new SelectList(status, "StatusId", "StatusNombre", filtro.StatusId);
             filtro.Proveedores = new SelectList(proveedores, "IdProveedor", "ProveedorNombre", filtro.ProveedorId);
-            filtro.Componentes = new SelectList(componentes, "ValorBit", "ComponenteNombre");
+            // Filtrar solo componentes con ValorBit válido y crear SelectListItems manualmente
+            var componentesConValor = componentes.Where(c => c.ValorBit.HasValue).ToList();
+            var componentesItems = componentesConValor.Select(c => new SelectListItem
+            {
+                Text = c.ComponenteNombre,
+                Value = c.ValorBit!.Value.ToString()
+            }).ToList();
+            
+            filtro.Componentes = new SelectList(componentesItems, "Value", "Text");
         }
 
         private async Task<List<Activo>> AplicarFiltros(ActivoFiltroViewModel filtro)

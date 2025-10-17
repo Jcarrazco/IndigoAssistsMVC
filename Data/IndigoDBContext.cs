@@ -12,7 +12,6 @@ namespace IndigoAssistMVC.Data
 
         public DbSet<Activo> Activos { get; set; }
         public DbSet<TipoActivo> TiposActivo { get; set; }
-        public DbSet<Departamento> Departamentos { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Componente> Componentes { get; set; }
@@ -164,7 +163,7 @@ namespace IndigoAssistMVC.Data
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.Departamento)
-                    .WithMany(d => d.Activos)
+                    .WithMany()
                     .HasForeignKey(e => e.IdDepartamento)
                     .OnDelete(DeleteBehavior.Restrict);
 
@@ -179,8 +178,98 @@ namespace IndigoAssistMVC.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            // Configuración de las entidades de catálogo
+            ConfigureCatalogEntities(modelBuilder);
+
             // Configuración de las entidades del sistema de Tickets
             ConfigureTicketEntities(modelBuilder);
+        }
+
+        private void ConfigureCatalogEntities(ModelBuilder modelBuilder)
+        {
+            // Configuración de TipoActivo
+            modelBuilder.Entity<TipoActivo>(entity =>
+            {
+                entity.ToTable("mTiposActivo");
+                entity.HasKey(e => e.IdTipoActivo);
+                entity.Property(e => e.IdTipoActivo)
+                    .ValueGeneratedOnAdd()
+                    .HasComment("Identificador único del tipo de activo");
+                
+                entity.Property(e => e.TipoActivoNombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(true)
+                    .HasComment("Nombre del tipo de activo");
+            });
+
+
+            // Configuración de Status
+            modelBuilder.Entity<Status>(entity =>
+            {
+                entity.ToTable("mStatus");
+                entity.HasKey(e => e.StatusId);
+                entity.Property(e => e.StatusId)
+                    .ValueGeneratedOnAdd()
+                    .HasComment("Identificador único del status");
+                
+                entity.Property(e => e.StatusNombre)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(true)
+                    .HasComment("Nombre del status");
+            });
+
+            // Configuración de Proveedor
+            modelBuilder.Entity<Proveedor>(entity =>
+            {
+                entity.ToTable("mProveedores");
+                entity.HasKey(e => e.IdProveedor);
+                entity.Property(e => e.IdProveedor)
+                    .ValueGeneratedOnAdd()
+                    .HasComment("Identificador único del proveedor");
+                
+                entity.Property(e => e.ProveedorNombre)
+                    .IsRequired()
+                    .HasMaxLength(120)
+                    .IsUnicode(true)
+                    .HasComment("Nombre del proveedor");
+            });
+
+            // Configuración de Componente
+            modelBuilder.Entity<Componente>(entity =>
+            {
+                entity.ToTable("mComponentes");
+                entity.HasKey(e => e.IdComponente);
+                entity.Property(e => e.IdComponente)
+                    .ValueGeneratedOnAdd()
+                    .HasComment("Identificador único del componente");
+                
+                entity.Property(e => e.ComponenteNombre)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .IsUnicode(true)
+                    .HasComment("Nombre del componente");
+                
+                entity.Property(e => e.ValorBit)
+                    .HasComment("Valor bit para codificación");
+            });
+
+            // Configuración de Software
+            modelBuilder.Entity<Software>(entity =>
+            {
+                entity.ToTable("mSoftware");
+                entity.HasKey(e => e.IdSoftware);
+                entity.Property(e => e.IdSoftware)
+                    .ValueGeneratedOnAdd()
+                    .HasComment("Identificador único del software");
+                
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .IsUnicode(true)
+                    .HasComment("Nombre del software");
+            });
         }
 
         private void ConfigureTicketEntities(ModelBuilder modelBuilder)
@@ -220,7 +309,20 @@ namespace IndigoAssistMVC.Data
             {
                 entity.ToTable("mDepartamentos");
                 entity.HasKey(e => e.IdDepto);
-                entity.Property(e => e.IdDepto).ValueGeneratedOnAdd();
+                entity.Property(e => e.IdDepto)
+                    .ValueGeneratedOnAdd()
+                    .HasComment("Identificador único del departamento");
+                
+                entity.Property(e => e.Departamento)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(true)
+                    .HasComment("Nombre del departamento");
+                
+                entity.Property(e => e.Tickets)
+                    .IsRequired()
+                    .HasDefaultValue(false)
+                    .HasComment("Indica si el departamento acepta tickets");
             });
 
             // Configuración de mStatusTicket

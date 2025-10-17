@@ -27,7 +27,7 @@ namespace IndigoAssistMVC.Models
 
         // Propiedades de navegación
         [ForeignKey("IdDepartamento")]
-        public virtual Departamento? Departamento { get; set; }
+        public virtual mDepartamentos? Departamento { get; set; }
 
         // Propiedades calculadas para estadísticas
         [NotMapped]

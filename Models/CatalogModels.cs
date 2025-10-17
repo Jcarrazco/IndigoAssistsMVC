@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IndigoAssistMVC.Models
 {
-    [Table("TiposActivo")]
+    [Table("mTiposActivo")]
     public class TipoActivo
     {
         [Key]
@@ -21,24 +21,8 @@ namespace IndigoAssistMVC.Models
         public virtual ICollection<Activo> Activos { get; set; } = new List<Activo>();
     }
 
-    [Table("Departamentos")]
-    public class Departamento
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public byte IdDepartamento { get; set; }
 
-        [Required]
-        [StringLength(80)]
-        [DisplayName("Departamento")]
-        [Column("Departamento")]
-        public string Nombre { get; set; } = string.Empty;
-
-        // Navegación
-        public virtual ICollection<Activo> Activos { get; set; } = new List<Activo>();
-    }
-
-    [Table("Status")]
+    [Table("mStatus")]
     public class Status
     {
         [Key]
@@ -49,13 +33,13 @@ namespace IndigoAssistMVC.Models
         [StringLength(20)]
         [DisplayName("Status")]
         [Column("Status")]
-        public char StatusNombre { get; set; } = 'A';
+        public string StatusNombre { get; set; } = string.Empty;
 
         // Navegación
         public virtual ICollection<Activo> Activos { get; set; } = new List<Activo>();
     }
 
-    [Table("Proveedores")]
+    [Table("mProveedores")]
     public class Proveedor
     {
         [Key]
@@ -72,7 +56,7 @@ namespace IndigoAssistMVC.Models
         public virtual ICollection<Activo> Activos { get; set; } = new List<Activo>();
     }
 
-    [Table("Componentes")]
+    [Table("mComponentes")]
     public class Componente
     {
         [Key]
@@ -89,7 +73,7 @@ namespace IndigoAssistMVC.Models
         public int? ValorBit { get; set; }
     }
 
-    [Table("Software")]
+    [Table("mSoftware")]
     public class Software
     {
         [Key]

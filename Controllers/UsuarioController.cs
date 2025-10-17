@@ -90,7 +90,7 @@ namespace IndigoAssistMVC.Controllers
             }
 
             var roles = await _userManager.GetRolesAsync(usuario);
-            var departamento = await _context.Departamentos.FindAsync(usuario.IdDepartamento);
+            var departamento = await _context.mDepartamentos.FindAsync(usuario.IdDepartamento);
 
             var viewModel = new UsuarioViewModel
             {
@@ -98,7 +98,7 @@ namespace IndigoAssistMVC.Controllers
                 UserName = usuario.UserName ?? "",
                 Email = usuario.Email ?? "",
                 NombreCompleto = usuario.NombreCompleto,
-                DepartamentoNombre = departamento?.Nombre,
+                DepartamentoNombre = departamento?.Departamento,
                 Activo = usuario.Activo,
                 FechaRegistro = usuario.FechaRegistro,
                 UltimoAcceso = usuario.UltimoAcceso,
@@ -528,7 +528,7 @@ namespace IndigoAssistMVC.Controllers
             foreach (var usuario in usuarios)
             {
                 var roles = await _userManager.GetRolesAsync(usuario);
-                var departamento = await _context.Departamentos.FindAsync(usuario.IdDepartamento);
+                var departamento = await _context.mDepartamentos.FindAsync(usuario.IdDepartamento);
 
                 // Aplicar filtro por rol si está especificado
                 if (!string.IsNullOrEmpty(filtros.RolFiltro) && !roles.Contains(filtros.RolFiltro))
@@ -542,7 +542,7 @@ namespace IndigoAssistMVC.Controllers
                     UserName = usuario.UserName ?? "",
                     Email = usuario.Email ?? "",
                     NombreCompleto = usuario.NombreCompleto,
-                    DepartamentoNombre = departamento?.Nombre,
+                    DepartamentoNombre = departamento?.Departamento,
                     Activo = usuario.Activo,
                     FechaRegistro = usuario.FechaRegistro,
                     UltimoAcceso = usuario.UltimoAcceso,
@@ -569,11 +569,11 @@ namespace IndigoAssistMVC.Controllers
         /// </summary>
         private async Task<List<DepartamentoViewModel>> ObtenerDepartamentosDisponibles()
         {
-            var departamentos = await _context.Departamentos.ToListAsync();
+            var departamentos = await _context.mDepartamentos.ToListAsync();
             return departamentos.Select(d => new DepartamentoViewModel
             {
-                IdDepartamento = d.IdDepartamento,
-                Nombre = d.Nombre
+                IdDepartamento = d.IdDepto,
+                Nombre = d.Departamento
             }).ToList();
         }
 
