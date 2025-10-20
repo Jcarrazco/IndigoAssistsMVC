@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qiZUvIUF8rc=",
+  "dgSpecHash": "A/mo8bccqSA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jorge\\source\\repos\\Proyecto_Diplomado\\IndigoAssistMVC\\IndigoAssistMVC\\IndigoAssistMVC.csproj",
+  "projectFilePath": "C:\\Users\\Jorge\\Documents\\GitHub\\Proyecto_Diplomado\\IndigoAssistMVC\\IndigoAssistMVC\\IndigoAssistMVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jorge\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Jorge\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
