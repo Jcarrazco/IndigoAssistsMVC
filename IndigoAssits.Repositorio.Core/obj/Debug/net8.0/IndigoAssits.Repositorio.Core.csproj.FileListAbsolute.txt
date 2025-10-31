@@ -1,0 +1,12 @@
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\bin\Debug\net8.0\IndigoAssits.Repositorio.Core.deps.json
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\bin\Debug\net8.0\IndigoAssits.Repositorio.Core.dll
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\bin\Debug\net8.0\IndigoAssits.Repositorio.Core.pdb
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.csproj.AssemblyReference.cache
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.AssemblyInfoInputs.cache
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.AssemblyInfo.cs
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.csproj.CoreCompileInputs.cache
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.dll
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\refint\IndigoAssits.Repositorio.Core.dll
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\IndigoAssits.Repositorio.Core.pdb
+C:\Users\Jorge\Documents\GitHub\Proyecto_Diplomado\IndigoAssistMVC\IndigoAssits.Repositorio.Core\obj\Debug\net8.0\ref\IndigoAssits.Repositorio.Core.dll

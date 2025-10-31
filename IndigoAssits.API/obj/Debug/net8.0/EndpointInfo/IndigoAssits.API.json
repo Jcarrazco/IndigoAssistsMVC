@@ -1,0 +1,1624 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "IndigoAssist API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Activos": {
+      "get": {
+        "tags": [
+          "Activos"
+        ],
+        "parameters": [
+          {
+            "name": "IdActivo",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "CodigoLike",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MarcaLike",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "NombreLike",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PersonaAsignLike",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "UbicacionLike",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TipoActivoId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "DepartamentoId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "StatusId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ProveedorId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "TieneSoftwareOP",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "CostoMin",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "CostoMax",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "FechaAltaDesde",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FechaAltaHasta",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FechaCompraDesde",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FechaCompraHasta",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FechaBajaDesde",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FechaBajaHasta",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "ComponentesSeleccionados",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "TamanoPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivoPaginadoDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivoPaginadoDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivoPaginadoDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivoCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivoCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivoCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Activos/{id}": {
+      "get": {
+        "tags": [
+          "Activos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivoDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivoDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivoDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Activos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivoUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivoUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivoUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Activos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Categoria": {
+      "get": {
+        "tags": [
+          "Categoria"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Categoria/departamento/{id}": {
+      "get": {
+        "tags": [
+          "Categoria"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoriaDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/InicioDeSessiones": {
+      "get": {
+        "tags": [
+          "InicioDeSessiones"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Tickets": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "UsuarioSolicitante",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdTecnico",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdCategoria",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdSubCategoria",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Prioridad",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdTipoTicket",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdDepartamento",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "FechaInicio",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FechaFin",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "BusquedaTexto",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "TamañoPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketPaginadoDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketPaginadoDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketPaginadoDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tickets"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Tickets/{id}": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketResponseDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Tickets/{id}/asignar": {
+      "patch": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketAsignacionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketAsignacionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketAsignacionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Tickets/{id}/desasignar": {
+      "patch": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Tickets/{id}/estado/{estado}": {
+      "patch": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Tickets/dashboard": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "idDepartamento",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEstadisticasDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEstadisticasDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketEstadisticasDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Tickets/buscar": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TicketResponseDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TicketResponseDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TicketResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ActivoCreateDto": {
+        "required": [
+          "codigo",
+          "feAlta",
+          "idDepartamento",
+          "idProveedor",
+          "idStatus",
+          "idTipoActivo",
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "maxLength": 40,
+            "minLength": 0,
+            "type": "string"
+          },
+          "marca": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modelo": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "serie": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string"
+          },
+          "personaAsign": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "ubicacion": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "feCompra": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "feAlta": {
+            "type": "string",
+            "format": "date"
+          },
+          "feBaja": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "costoCompra": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "notas": {
+            "maxLength": 400,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "codificacionComponentes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tieneSoftwareOP": {
+            "type": "boolean"
+          },
+          "idTipoActivo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idDepartamento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idStatus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idProveedor": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivoDto": {
+        "type": "object",
+        "properties": {
+          "idActivo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "marca": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelo": {
+            "type": "string",
+            "nullable": true
+          },
+          "serie": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "personaAsign": {
+            "type": "string",
+            "nullable": true
+          },
+          "ubicacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "feAlta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "feCompra": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "feBaja": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "costoCompra": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "notas": {
+            "type": "string",
+            "nullable": true
+          },
+          "codificacionComponentes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tieneSoftwareOP": {
+            "type": "boolean"
+          },
+          "idTipoActivo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idDepartamento": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idStatus": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idProveedor": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "tipoActivoNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "departamentoNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "proveedorNombre": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivoPaginadoDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivoDto"
+            },
+            "nullable": true
+          },
+          "totalRegistros": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paginaActual": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tamanoPagina": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivoUpdateDto": {
+        "required": [
+          "codigo",
+          "feAlta",
+          "idActivo",
+          "idDepartamento",
+          "idProveedor",
+          "idStatus",
+          "idTipoActivo",
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "maxLength": 40,
+            "minLength": 0,
+            "type": "string"
+          },
+          "marca": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "modelo": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "serie": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string"
+          },
+          "personaAsign": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "ubicacion": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "feCompra": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "feAlta": {
+            "type": "string",
+            "format": "date"
+          },
+          "feBaja": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "costoCompra": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "notas": {
+            "maxLength": 400,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "codificacionComponentes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tieneSoftwareOP": {
+            "type": "boolean"
+          },
+          "idTipoActivo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idDepartamento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idStatus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idProveedor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idActivo": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoriaDto": {
+        "type": "object",
+        "properties": {
+          "idCategoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "categoria": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketAsignacionDto": {
+        "required": [
+          "idTecnico",
+          "idTicket"
+        ],
+        "type": "object",
+        "properties": {
+          "idTicket": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idTecnico": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "feCompromiso": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketCreateDto": {
+        "required": [
+          "descripcion",
+          "idSubCategoria",
+          "titulo",
+          "usuarioSolicitante"
+        ],
+        "type": "object",
+        "properties": {
+          "usuarioSolicitante": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idSubCategoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "descripcion": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string"
+          },
+          "idTipoTicket": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prioridad": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketEstadisticasDto": {
+        "type": "object",
+        "properties": {
+          "totalAbiertos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalEnProceso": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAsignados": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCerrados": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "porDepartamento": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "nullable": true
+          },
+          "porPrioridad": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "nullable": true
+          },
+          "porEstado": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketPaginadoDto": {
+        "type": "object",
+        "properties": {
+          "tickets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TicketResponseDto"
+            },
+            "nullable": true
+          },
+          "totalRegistros": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paginaActual": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tamañoPagina": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketResponseDto": {
+        "type": "object",
+        "properties": {
+          "idTicket": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usuarioSolicitante": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "solicitanteNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "idSubCategoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subCategoriaNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "idCategoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "categoriaNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "titulo": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusDescripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoTicket": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipoTicketNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "prioridad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prioridadNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "feAlta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "feAsignacion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "feCompromiso": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "feCierre": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idTecnico": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tecnicoNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "idDepartamento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departamentoNombre": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TicketUpdateDto": {
+        "required": [
+          "idTicket"
+        ],
+        "type": "object",
+        "properties": {
+          "idTicket": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idTipoTicket": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prioridad": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idSubCategoria": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "feAsignacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "feCompromiso": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "feCierre": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Ingrese el token JWT como: Bearer {token}",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

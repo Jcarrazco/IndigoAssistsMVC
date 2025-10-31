@@ -1,0 +1,184 @@
+@model TicketLoginViewModel
+@{
+    ViewData["Title"] = "Login - Sistema de Tickets";
+    Layout = null; // Usar layout simple para login
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 2rem;
+            text-align: center;
+        }
+        .login-body {
+            padding: 2rem;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .input-group-text {
+            background: transparent;
+            border: 2px solid #e9ecef;
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+        }
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+        }
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-container">
+                    <div class="login-header">
+                        <i class="fas fa-ticket-alt fa-3x mb-3"></i>
+                        <h2 class="mb-0">Sistema de Tickets</h2>
+                        <p class="mb-0">Indigo Assist</p>
+                    </div>
+                    <div class="login-body">
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fas fa-exclamation-triangle"></i> @TempData["Error"]
+                            </div>
+                        }
+                        @if (TempData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                <i class="fas fa-check-circle"></i> @TempData["Mensaje"]
+                            </div>
+                        }
+
+                        <form asp-action="Login" method="post">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Usuario" class="form-label">
+                                    <i class="fas fa-user"></i> Usuario
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <input asp-for="Usuario" class="form-control" placeholder="Ingresa tu usuario" />
+                                </div>
+                                <span asp-validation-for="Usuario" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Password" class="form-label">
+                                    <i class="fas fa-lock"></i> Contraseña
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input asp-for="Password" class="form-control" placeholder="Ingresa tu contraseña" />
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <div class="form-check">
+                                    <input asp-for="Recordarme" class="form-check-input" />
+                                    <label asp-for="Recordarme" class="form-check-label">
+                                        Recordarme
+                                    </label>
+                                </div>
+                            </div>
+
+                            <input asp-for="ReturnUrl" type="hidden" />
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-login">
+                                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                                </button>
+                            </div>
+                        </form>
+
+                        <hr class="my-4">
+                        
+                        <div class="text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i> 
+                                Usuarios de prueba disponibles:
+                            </small>
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    ADMIN, MARIA.R, CARLOS.H, ANA.S, ROBERTO.J
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        $(document).ready(function() {
+            // Auto-focus en el campo de usuario
+            $('#Usuario').focus();
+            
+            // Limpiar mensajes después de 5 segundos
+            setTimeout(function() {
+                $('.alert').fadeOut();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
